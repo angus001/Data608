@@ -1,0 +1,186 @@
+---
+title: "Angus_HW2_20170225"
+author: "Huang, Angus"
+date: "February 25, 2017"
+output: html_document
+---
+
+```{r}
+#install.packages("bigvis")
+##library(bigvis)
+##Sys.which("g++")
+#install.packages("devtools")
+#install_github("devtools")
+library(bigvis)
+#rm(list=ls())
+
+```
+
+```{r }
+library(ggplot2)
+library(xlsx)
+df <- as.data.frame(read.csv(file.choose()) )
+
+```
+
+
+```{r pluto}
+head(df)
+str(df)
+
+```
+
+## Including Plots
+
+```{r }
+library(ggplot2)
+library(dplyr)
+library(ggthemes)
+library(bigvis)
+
+df1 <-df %>% filter(YearBuilt>1890,LotArea>100,AssessTot <10000000, NumFloors != 0) %>%
+  select(LotArea,YearBuilt,AssessLand ,AssessTot, NumFloors)
+
+df<-df1
+
+p1 <- ggplot(data = df1, aes(df1$YearBuilt)) + geom_bar() ##+coord_flip()
+p1
+
+##str(df$AssessTot)
+
+#ggplot()+geom_point(data = df, aes(x=df$YearBuilt, y=df$NumFloors , color=df$NumFloors))
+```
+
+# plotting 5 year averages
+```{r}
+yr <- with(df1, condense(bin(YearBuilt, 5), z=LotArea))
+#autoplot(yr)+xlim(1900,2014)+ylim(0,10000)+ylab('Lot_Area')
+
+
+```
+
+```{r}
+ggplot(yr)+geom_line(aes(x=YearBuilt, y = .mean))+geom_point(aes(x=YearBuilt, y=.mean, color = .count)) + xlim(1900, 2014) + ylim(0,10000) +
+  ylab('Lot Area')+scale_color_gradient(trans ="log")
+
+```
+
+Questions 1
+1. After a few building collapses, the City of New York is going to begin investigating older
+buildings for safety. However, the city has a limited number of inspectors, and wants to find a
+'cut-off' date before most city buildings were constructed. Build a graph to help the city
+determine when most buildings were constructed. Is there anything in the results that causes
+you to question the accuracy of the data? (note: only look at buildings built since 1850)
+
+Answer:
+The above two graphs show the most number of buildings were built around 1920 and 1980. Although the number of buildings built in 1920s is higher. The later year 1980s have larger building and higher area. If the City officials are concerned of building safety due to old age, the cut-off date should be around 1910 which has the largest number of units built at around 100k. During the period 1925 to 1950, higher number of units were built. However, the lot area decreased by significant amount. This question the accuracy of the data during this World War II era. 
+
+#Question 2
+
+2. The city is particularly worried about buildings that were unusually tall when they were
+built, since best-practices for safety hadn't yet been determined. Create a graph that shows
+how many buildings of a certain number of floors were built in each year (note: you may
+want to use a log scale for the number of buildings). It should be clear when 20-story
+buildings, 30-story buildings, and 40-story buildings were first built in large numbers.
+
+Answers: 30 stories tall building first appeared in early 1900. Subsequently, taller buildings start to appear around 1920, 1925. 
+Then, the tallest building at the time 'Empire State Building' was built in 1930. 
+
+
+```{r}
+
+
+tall_buildings <- condense(c(bin(df1$YearBuilt, 5),
+                             bin(df1$NumFloors, 10, origin = 0))
+                           )
+
+#change column names
+colnames(tall_buildings) = c("YearBuilt", "NumFloors","Count")
+
+ggplot(tall_buildings, aes(YearBuilt, NumFloors, fill= Count)) + geom_raster()+scale_color_gradient(trans = "log")
+
+
+```
+
+
+
+
+# 2 dimensional bins
+
+```{r}
+n_bins1 = 5e3
+bin_data1 = with(df1,
+                condense(bin(df1$LotArea, find_width(LotArea, n_bins1)),
+                         bin(df1$AssessTot, find_width(AssessTot, n_bins1))))
+
+head(bin_data1)
+str(bin_data1)
+
+#plot results
+ggplot(bin_data1, aes(bin_data1$LotArea, bin_data1$AssessTot, fill = .count)) + geom_raster()
+
+data(movies, package = "bigvis")
+n_bins = 1e4
+bin_data = with(movies,
+                condense(bin(length, find_width(length, n_bins)),
+                         bin(rating, find_width(rating, n_bins))))
+
+ggplot(bin_data, aes(length, rating, fill = .count)) + geom_raster()
+
+```
+
+
+3. Your boss suspects that buildings constructed during the US's involvement in World War
+II (1941-1945) are more poorly constructed than those before and after the way due to the
+high cost of materials during those years. She thinks that, if you calculate assessed value
+per floor, you will see lower values for buildings at that time vs before or after. Construct a
+chart/graph to see if she's right.
+
+Answers : The value per floor built during the WWII period decreased by $25k on average. After the war, the value went back to prior values per floor. 
+
+
+```{r}
+
+df2 <-df %>% filter(YearBuilt>1890,LotArea>100,AssessTot > 1000, df$AssessLand> 1000, NumFloors != 0) %>%
+  select(LotArea,YearBuilt,AssessLand ,AssessTot, NumFloors)
+
+
+df2$during_wwii<- df2$YearBuilt <=1945 && df2$YearBuilt >=1941
+head(df2)
+
+# Get only building value-per floor
+df2$AssessConstruction <-(df2$AssessTot-df2$AssessLand)
+df2$value_per_floor <-(df2$AssessConstruction / df2$NumFloors)
+head(df2)
+
+
+#Grouping value by 5 years
+cq_condensed <- condense(bin(df2$YearBuilt,5,origin=1856),
+                            summary="mean",
+                         z=df2$value_per_floor
+                          )
+colnames(cq_condensed) <- c("YearBuilt","Count","Mean")
+
+head(cq_condensed)
+
+#Selecting building value which are built between 1930 & 1955
+cq_condensed <- cq_condensed[complete.cases(cq_condensed),]
+head(cq_condensed)
+cq_condensed<-cq_condensed[cq_condensed$YearBuilt>1930 & cq_condensed$YearBuilt<=1955,]
+
+# plot it
+ggplot(cq_condensed, aes(x = YearBuilt, y = Mean)) + 
+  geom_bar(stat="identity")+
+  xlim(1930, 1956) +
+  ggtitle("Average Assessed Value Per Floor Around World War II") +
+  xlab("Construction Year") +
+  ylab("Average Assessed Value of Construction Per Floor") +
+  scale_x_continuous(breaks = round(seq(1931,
+                                      1955, 
+                                      by = 2),
+                                  1)
+                   )+
+  scale_y_continuous(labels = scales::dollar) 
+
+```
+

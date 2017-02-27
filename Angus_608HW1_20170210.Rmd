@@ -1,0 +1,85 @@
+---
+title: "Data608_HW1"
+author: "Huang, Angus"
+date: "February 10, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+
+```{r }
+library(ggplot2)
+library(xlsx)
+company <- as.data.frame(read.csv(file.choose()))
+
+```
+
+## 
+
+```{r }
+##company2<-as.data.frame(company)
+##head(company,6)
+head(company)
+
+```
+```{r }
+company2 <- company[1:5001,1:8]
+head(company2)
+str(company2)
+```
+
+```{r}
+library(ggplot2)
+company3 <- within(company2, State<- factor(State, levels = names(sort(table(State), decreasing = TRUE))))
+
+p1 <- ggplot(data = company2, aes(company3$State)) + geom_bar()
+p1
+
+p2 <-ggplot(data=company3, aes((company3$State))) + geom_bar(width = .5)+ theme(axis.text.x = element_text(angle = 60, hjust =  1), plot.margin = unit(c(1,.5,1,.5), "cm"))
+
+#ADD TITLE
+p2 + ggtitle("Bar Chart of Company")
+
+
+
+#+coord_flip() 
+#+ labs(title = 'Numbers of Company By State')+
+ # labs(y='Numbers of Company', x='US States')
+
+#position = position_dodge(width = 20)
+
+```
+```{r}
+library(dplyr)
+NY <-company3[ which (company3$State == 'NY'),]
+NY2<-NY[complete.cases(NY),]
+NY2
+
+
+NY3 <- NY2[order(-NY2$Employees),]
+##NY3$Employees <-as.character(NY3$Employees)
+NY3$Industry <- factor(NY3$Industry, levels =NY3$Industry[order(-NY3$Employees)])
+
+ggplot(NY3, aes(x=NY3$Industry, y =NY3$Employees))+geom_histogram(stat = "identity")+theme(axis.text.x = element_text(angle = 70, hjust =  1))
+
+
+```
+```{r Revenue}
+
+company4 <- company3[complete.cases(company3), ]
+company4 <- company4[which(company4$Employees >= 1), ]
+
+company5 <-summarise(group_by(company4, Industry), Employees = sum(Employees), Revenue = sum(Revenue))
+company5 <-(company5[order(-company5$Employees),])
+company5$RevenuePeremployee <- as.integer (company5$Revenue/company5$Employees) 
+company5 <- company5[order(-company5$RevenuePeremployee),]
+
+
+ggplot(company5, aes(company5$Industry, company5$RevenuePeremployee))+geom_histogram(stat = "identity")+theme(axis.text.x = element_text(angle = 70, hjust =  1))
+
+```
