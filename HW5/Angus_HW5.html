@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<body>
+<!-- question 1 -->
+
+<p>Enter a word and Click the button to generate its "reverse".</p>
+
+<p>
+<form name= 'reverse' >
+    <input id="word" type="string" size="4">
+    <input type="button" value="Reverse" onClick="answer1();">
+</form>
+</p>
+
+<p id = "Q1"> </p>
+
+
+<!-- question 2 -->
+
+<p>Enter a number and Click the button to generate the multiples .</p>
+
+<p>
+<form name= 'MultiTable' >
+    <input id="num" type="number" size="4">
+    <input type="button" value="Generate" onClick="answer2();">
+</form>
+</p>
+
+<p id="demo"></p>
+
+<script type="text/javascript">
+
+function reverser(string){
+  var output = '';
+    output = string.split('').reverse().join('');
+    return output
+};
+function answer1(){
+    var target = document.getElementById('Q1');
+    target.innerHTML = reverser(document.reverse.word.value);
+};
+
+
+<!--Question 2 creates an array of multiples-->
+function multiples(count){
+    q2Array = [];
+    for (i = 1; i <= count; i++) {q2Array.push(document.MultiTable.num.value * (1 * i))};
+    return q2Array
+}
+
+
+function tableMake(inputArray){
+    var elements = inputArray.length;
+    var outHTML = '<table>';
+    for (i = 0; i < elements; i++){
+        if (i % 4 ==0){outHTML= outHTML +'<tr>'};
+        outHTML = outHTML + '<td>'+ inputArray[i]+ '</td>';
+        if (i % 4 ==4-1){outHTML = outHTML +'</tr>'};
+    };
+    outHTML = outHTML + '</table>';
+    return outHTML
+};
+
+function answer2(){
+  var target = document.getElementById("demo");
+  target.innerHTML = tableMake(multiples(20));
+};
+
+</script>
+
+
+<script>
+function myFunction() {
+    var x = document.getElementById('num').value;
+		for (i=1,i<5,i++)
+		{
+			
+		
+		}
+	
+    document.getElementById("demo").innerHTML = x;
+}
+</script>
+
+</body>
+</html>
