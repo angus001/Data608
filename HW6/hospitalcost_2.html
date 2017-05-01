@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+
+<html>
+
+	<p><b> Hospital Cost in Different State</b></p>
+ <head>
+        
+        <title>Angus D3 Template</title>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!--			
+		<style>
+
+			.chart div {
+			  font: 10px sans-serif;
+			  background-color: steelblue;
+			  text-align: right;
+			  padding: 3px;
+			  margin: 1px;
+			  color: white;
+			}
+
+		</style>
+		<div class="chart"></div>
+
+-->
+        
+</head>
+
+<body>
+	<div id= "myDiv"> </div>
+	<script>
+			
+			Plotly.d3.csv ("https://raw.githubusercontent.com/angus001/Data608/master/Project/simpledata.csv", function(err,rows)
+			{
+				function unpack(rows,key)
+				{
+					return rows.map(function(row)
+					{return row[key];});
+				}
+			
+		
+					var data = [
+						  {
+							x: unpack(rows, 'State'),
+							
+							y: unpack(rows,'AvgPaid'),
+							
+							//mode: 'markers',
+							// type: 'scatter'
+							type: 'bar'
+							//name: 'HospitalCost'
+						  }
+						];
+
+					var layout = {
+			
+							height: 500,
+							width: 500
+						}
+
+						Plotly.newPlot('myDiv', data, layout);
+			});
+	</script>
+	
+
+	<div id="chart_div2" style="width: 1200px; height: 1000px;"></div>
+
+	//the following codes are from 
+	//https://developers.google.com/chart/interactive/docs/gallery/imagebarchart
+<script type="text/javascript">
+
+    google.charts.load('current', {'packages':['imagebarchart']});
+    google.charts.setOnLoadCallback(drawSeriesChart);
+
+    //data is hard coded in; attempts to bring in data from .csv
+    //using either jquery-csv or Google's Chart Tools Datasource
+    function drawSeriesChart() 
+	{
+
+		  var data = google.visualization.arrayToDataTable
+		  ([
+				['State',		'AvgPaid'],
+				['AK',		8401.95],
+				['CT',		7716.65],
+				['CA',		7665.18],
+				['AZ',		7552.06],
+				['IL',		7114.78],
+				['AR',		6857.91],
+				['FL',		6644.37],
+				['LA',		6631.05],
+				['GA',		6234.09],
+				['AL',		5666.59],
+
+
+
+		  ]);
+
+		  var options = 
+		  {
+				title:   '          ' +'Hospital Cost' +" " +
+					      'Across Different States for Top Diagnosis',
+				hAxis: {title: 'State', textPosition: 'in', maxValue: 100},
+				vAxis: {title: 'Cost', textPosition: 'in'},
+				sizeAxis: {minSize: 10, maxSize: 40},
+				bubble: {textStyle: {fontSize: 10}},
+				legend: {position: 'bottom'},
+				explorer: {actions: ['dragToZoom', 'rightClickToReset']},
+				chartArea: {top:10, left: 50}
+		  };
+
+		  var chart = new google.visualization.ImageBarChart(document.getElementById('chart_div2'));
+		  chart.draw(data, options);
+    }
+
+    </script>
+	
+	
+</body>
+
+</html>
