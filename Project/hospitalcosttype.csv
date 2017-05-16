@@ -1,52 +1,52 @@
-State,Type,RPP_Metro,AvgPaid
-AK,High,109.4,3366222.49
-AL,Very Low,88.9,27510523.86
-AR,Very Low,88.9,16575787.28
-AZ,Low,97,28950559.93
-CA,Very High,113,164993988.9
-CO,High,103.2,17960075.69
-CT,High,109.3,22855921.3
-DC,Very High,118.4,6005089.59
-DE,Medium,102,4081868.53
-FL,Medium,99.6,98465078.31
-GA,Very Low,93.6,44343344.17
-HI,Very High,120.2,5646876.87
-IA,Very Low,93,14413999.34
-ID,Low,94,5414776.23
-IL,Medium,102.8,77434457.25
-IN,Very Low,92.7,37300911.59
-KS,Very Low,92.8,13850070.38
-KY,Very Low,90.3,26731563.38
-LA,Very Low,92.7,26149231.62
-MA,High,107.4,39495689.06
-MD,Very High,111.4,41987795.72
-ME,Medium,98.1,7707835.54
-MI,Low,95.3,52859204.18
-MN,Medium,100.5,22403429.64
-MO,Very Low,90.9,35413278.33
-MS,Very Low,90,19832287.23
-MT,Low,96,4681918.2
-NC,Very Low,92.9,45819845.42
-ND,Very Low,93.6,4147263.25
-NE,Very Low,93.3,9910246.84
-NH,High,108.2,7645391.68
-NJ,Very High,114.8,51536799.21
-NM,Low,97.1,8821394.28
-NV,Medium,98.2,12370645.07
-NY,Very High,117.6,108259026.1
-OH,Very Low,90.3,61762591.09
-OK,Very Low,91.8,21051175.41
-OR,Medium,100.2,13556614.53
-PA,Medium,99.2,71016737.27
-RI,Medium,98.9,6179625.31
-SC,Very Low,91.4,26000001.9
-SD,Very Low,92.1,4928860.37
-TN,Very Low,91.4,33985667.16
-TX,Low,97.9,109670573.7
-UT,Low,97.6,7136931.98
-VA,High,105.3,38501742.43
-VT,High,103.8,3176902.21
-WA,High,104.7,29288875.29
-WI,Low,95.2,26273179.72
-WV,Very Low,89.4,12661915.11
-WY,Medium,98.4,2815426.02
+State,Type,RPP_Metro,Average of AvgPaid
+AK,High,109.4," $14,572 "
+AL,Very Low,88.9," $7,568 "
+AR,Very Low,88.9," $8,019 "
+AZ,Low,97," $10,155 "
+CA,Very High,113," $12,630 "
+CO,High,103.2," $9,503 "
+CT,High,109.3," $11,365 "
+DC,Very High,118.4," $12,998 "
+DE,Medium,102," $10,360 "
+FL,Medium,99.6," $8,827 "
+GA,Very Low,93.6," $8,926 "
+HI,Very High,120.2," $12,776 "
+IA,Very Low,93," $8,313 "
+ID,Low,94," $9,827 "
+IL,Medium,102.8," $9,791 "
+IN,Very Low,92.7," $8,756 "
+KS,Very Low,92.8," $8,455 "
+KY,Very Low,90.3," $8,279 "
+LA,Very Low,92.7," $8,639 "
+MA,High,107.4," $10,280 "
+MD,Very High,111.4," $12,609 "
+ME,Medium,98.1," $8,680 "
+MI,Low,95.3," $9,754 "
+MN,Medium,100.5," $9,948 "
+MO,Very Low,90.9," $8,725 "
+MS,Very Low,90," $8,229 "
+MT,Low,96," $9,253 "
+NC,Very Low,92.9," $9,089 "
+ND,Very Low,93.6," $9,828 "
+NE,Very Low,93.3," $9,332 "
+NH,High,108.2," $9,290 "
+NJ,Very High,114.8," $10,679 "
+NM,Low,97.1," $9,620 "
+NV,Medium,98.2," $10,292 "
+NY,Very High,117.6," $11,795 "
+OH,Very Low,90.3," $8,808 "
+OK,Very Low,91.8," $8,354 "
+OR,Medium,100.2," $10,436 "
+PA,Medium,99.2," $9,100 "
+RI,Medium,98.9," $10,510 "
+SC,Very Low,91.4," $9,132 "
+SD,Very Low,92.1," $10,142 "
+TN,Very Low,91.4," $8,154 "
+TX,Low,97.9," $9,244 "
+UT,Low,97.6," $9,750 "
+VA,High,105.3," $8,888 "
+VT,High,103.8," $11,766 "
+WA,High,104.7," $10,543 "
+WI,Low,95.2," $9,271 "
+WV,Very Low,89.4," $7,968 "
+WY,Medium,98.4," $11,398 "
