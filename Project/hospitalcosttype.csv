@@ -1,4 +1,4 @@
-country,year,continent,lifeExp,pop,TypeSize,gdpPercap,pop1
+country,year,continent,lifeExp,gdpPercap,TypeSize,pop,pop1
 AK,2014,High,109.4,14572,$145.72 ,600,14572
 VT,2014,High,103.8,11766,$129.98 ,600,11766
 CT,2014,High,109.3,11365,$127.76 ,600,11365
