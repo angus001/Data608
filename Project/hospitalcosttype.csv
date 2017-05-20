@@ -1,4 +1,4 @@
-stateid,state,year,continent,lifeExp,pop,TypeSize,gdpPercap1,gdpPercap
+stateid,state,year,category,lifeExp,pop,TypeSize,gdpPercap1,gdpPercap
 SD,South Dakota,2014,Very Low,92.1,10142,$91.00 ,150,10142
 ND,North Dakota,2014,Very Low,93.6,9828,$90.89 ,150,9828
 NE,Nebraska,2014,Very Low,93.3,9332,$89.26 ,150,9332
